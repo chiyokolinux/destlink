@@ -1,3 +1,50 @@
 #!/bin/bash
 
-echo "destlink v0.1"
+_term() {
+    echo "Caught SIGTERM, unlinking dests"
+    cleanup
+}
+
+cleanup() {
+    rm -rf dest
+}
+
+setup() {
+    if [[ -d "/dest" ]]
+    then
+        mv dest dest.queue
+    fi
+}
+
+create_links() {
+    mkdir -vp dest/{user,system}
+
+    ln -s "$(echo ${ROOTHOME} | awk -F\: '{print $2}')" "dest/$(echo ${ROOTHOME} | awk -F\: '{print $1}')"
+}
+
+move_queue() {
+    if [[ -d "/dest.queue" ]]
+    then
+        mv dest.queue dest
+    fi
+}
+
+main() {
+    setup
+    create_links
+    move_queue
+
+    sleep infinity &
+
+    child=$! 
+    wait "$child"
+}
+
+# service logic for kanrisha
+
+trap _term SIGTERM
+trap _term SIGINT
+
+. destlink.conf
+
+main
