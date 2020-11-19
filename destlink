@@ -19,7 +19,12 @@ setup() {
 create_links() {
     mkdir -vp dest/{user,system}
 
-    ln -s "$(echo ${ROOTHOME} | awk -F\: '{print $2}')" "dest/$(echo ${ROOTHOME} | awk -F\: '{print $1}')"
+    TARGETS=($MOUNTS)
+
+    for CURRENTDEST in ${TARGETS[@]}
+    do
+        ln -s "$(echo ${!CURRENTDEST} | awk -F\: '{print $2}')" "dest/$(echo ${!CURRENTDEST} | awk -F\: '{print $1}')"
+    done
 }
 
 move_queue() {
