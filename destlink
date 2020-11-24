@@ -6,18 +6,18 @@ _term() {
 }
 
 cleanup() {
-    rm -rf dest
+    rm -rf /dest
 }
 
 setup() {
     if [[ -d "/dest" ]]
     then
-        mv dest dest.queue
+        mv /dest /dest.queue
     fi
 }
 
 create_links() {
-    mkdir -vp dest/{user,system}
+    mkdir -vp /dest/{user,system}
 
     TARGETS=($MOUNTS)
 
@@ -30,7 +30,7 @@ create_links() {
 move_queue() {
     if [[ -d "/dest.queue" ]]
     then
-        mv dest.queue dest
+        mv /dest.queue /dest
     fi
 }
 
@@ -41,7 +41,7 @@ main() {
 
     sleep infinity &
 
-    child=$! 
+    child=$!
     wait "$child"
 }
 
@@ -50,6 +50,6 @@ main() {
 trap _term SIGTERM
 trap _term SIGINT
 
-. destlink.conf
+. ./destlink.conf
 
 main
