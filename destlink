@@ -50,6 +50,6 @@ main() {
 trap _term SIGTERM
 trap _term SIGINT
 
-. ./destlink.conf
+. /etc/destlink.conf
 
 main
