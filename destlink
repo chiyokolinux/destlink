@@ -50,6 +50,6 @@ main() {
 trap _term SIGTERM
 trap _term SIGINT
 
-. /etc/destlink.conf
+. /etc/kanrisha.d/available/destlink/destlink.conf
 
 main
