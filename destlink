@@ -6,35 +6,37 @@ _term() {
 }
 
 cleanup() {
-    rm -rf /dest
+    rm -rf ${PREFIX}/dest
 }
 
 setup() {
-    if [[ -d "/dest" ]]
+    if [[ -d "${PREFIX}/dest" ]]
     then
-        mv /dest /dest.queue
+        mv ${PREFIX}/dest ${PREFIX}/dest.queue
     fi
 }
 
 create_links() {
-    mkdir -vp /dest/{user,system}
+    mkdir -vp ${PREFIX}/dest/{user,system}
 
     TARGETS=($MOUNTS)
 
     for CURRENTDEST in ${TARGETS[@]}
     do
-        ln -s "$(echo ${!CURRENTDEST} | awk -F\: '{print $2}')" "dest/$(echo ${!CURRENTDEST} | awk -F\: '{print $1}')"
+        ln -s "$(echo ${!CURRENTDEST} | awk -F\: '{print $2}')" "${PREFIX}/dest/$(echo ${!CURRENTDEST} | awk -F\: '{print $1}')"
     done
 }
 
 move_queue() {
-    if [[ -d "/dest.queue" ]]
+    if [[ -d "${PREFIX}/dest.queue" ]]
     then
-        mv /dest.queue /dest
+        mv ${PREFIX}/dest.queue ${PREFIX}/dest
     fi
 }
 
 main() {
+    echo "${PREFIX}"
+
     setup
     create_links
     move_queue
@@ -50,6 +52,6 @@ main() {
 trap _term SIGTERM
 trap _term SIGINT
 
-. /etc/kanrisha.d/available/destlink/destlink.conf
+. "${PREFIX}/etc/kanrisha.d/available/destlink/destlink.conf"
 
 main
