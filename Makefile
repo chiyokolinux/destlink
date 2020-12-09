@@ -11,6 +11,7 @@ install: all
 	mkdir -p $(DESTDIR)$(PREFIX)/etc/kanrisha.d/available/destlink
 	cp -f $(RUNFILE) $(DESTDIR)$(PREFIX)/etc/kanrisha.d/available/destlink/run
 	cp -f $(CONFFILE) $(DESTDIR)$(PREFIX)/etc/kanrisha.d/available/destlink
+    chmod +x $(DESTDIR)$(PREFIX)/etc/kanrisha.d/available/destlink/run
 
 uninstall:
     rm -f $(DESTDIR)$(PREFIX)/etc/kanrisha.d/available/destlink/run $(DESTDIR)$(PREFIX)/etc/kanrisha.d/available/destlink/$(CONFFILE)
