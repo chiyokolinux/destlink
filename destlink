@@ -24,12 +24,14 @@ create_links() {
     for CURRENTDEST in ${TARGETS[@]}
     do
         ln -s "$(echo ${!CURRENTDEST} | awk -F\: '{print $2}')" "${PREFIX}/dest/$(echo ${!CURRENTDEST} | awk -F\: '{print $1}')"
+        echo "Linked target ${CURRENTDEST} ( $(echo ${!CURRENTDEST} | awk -F\: '{print $1}') ) to $(echo ${!CURRENTDEST} | awk -F\: '{print $2}')"
     done
 }
 
 move_queue() {
     if [[ -d "${PREFIX}/dest.queue" ]]
     then
+        echo "Moving queue"
         mv ${PREFIX}/dest.queue ${PREFIX}/dest
     fi
 }
