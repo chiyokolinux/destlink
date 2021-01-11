@@ -37,7 +37,7 @@ move_queue() {
 }
 
 main() {
-    echo "${PREFIX}"
+    echo "Root prefix is set to: ${PREFIX}"
 
     setup
     create_links
