@@ -7,6 +7,7 @@ _term() {
 
 cleanup() {
     rm -rf ${PREFIX}/dest
+    kill $child
 }
 
 setup() {

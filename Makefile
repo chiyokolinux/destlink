@@ -1,6 +1,4 @@
-include config.mk
-
-VERSION  = 1.0
+VERSION  = 1.1
 
 RUNFILE  = destlink
 CONFFILE = destlink.conf
